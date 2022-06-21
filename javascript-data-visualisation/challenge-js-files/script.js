@@ -26,7 +26,6 @@ for (i=0; i<AllThTable1.length;i++)
     } 
 }
 years.splice(0,5);
-console.log (years)
 
 //creation d'une fonction hasNumber
 function hasNumber (number)
@@ -36,33 +35,32 @@ function hasNumber (number)
 
 ////take the countries & the datas
 var AllTdTable1 = table1.querySelectorAll('td');
-// datas
-AllTdTable1.forEach(e=>{if(hasNumber(e.innerHTML)|| e.innerHTML==":"){
-    parseInt(e.innerHTML);
-    datas.push (e.innerHTML);
-}});
 // countries
 AllTdTable1.forEach(e=>{if(!hasNumber(e.innerHTML)){
     countries.push (e.innerHTML);
 }});
 countries = countries.filter(pays=>pays!==":")
-
-/// transformation des datas en INT
+// datas
+AllTdTable1.forEach(e=>{if(hasNumber(e.innerHTML)|| e.innerHTML==":"){
+    parseInt(e.innerHTML);
+    datas.push (e.innerHTML);
+}});
+/// transformation les datas en INT
 for (i=0;i<datas.length;i++)
 {
     datas[i] = parseInt(datas[i]);
 }
+/// découpe les datas en tableau pour chaque pays
+var tableauParPaysDesDonnees = [];
+const nbrDeDonneesParPays = 11;
+for (i=0;i<datas.length;i+=nbrDeDonneesParPays){
+    tableauParPaysDesDonnees[i] = datas.slice(i,i+nbrDeDonneesParPays)
+}
+tableauParPaysDesDonnees = tableauParPaysDesDonnees.filter(elt=>elt !== undefined);
 
 
-console.log (datas);
-console.log (countries);
-console.log (countries[0]);
-console.log (datas);
-console.log (typeof(datas[0]))
-datas[0] = parseInt(datas[0])
-console.log (datas[0]);
-console.log (datas[5]);
-console.log (typeof(datas[0]))
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +78,6 @@ function changeColor ()
         return color;
     }
 
-
-
 function donneesPays (label, data, borderColor)
 {
     this.label = label;
@@ -89,31 +85,19 @@ function donneesPays (label, data, borderColor)
     this.borderColor = borderColor;
 }
 
-var dataPerCountries=[];
+var datasets=[];
 for (i=0;i<countries.length;i++)
 {
- dataPerCountries[i] = new donneesPays (countries[i],[datas[i]],'red');
+ datasets[i] = new donneesPays (countries[i],tableauParPaysDesDonnees[i],changeColor());
 }
-
-console.log (dataPerCountries);
-console.log (dataPerCountries[25]);
 
 
 
 
 const data = {
     labels: years,
-    datasets: [
-    { 
-        label: countries[0],
-        data: [datas[0],datas[1],datas[2],datas[3],datas[4],datas[5],datas[6],datas[7],datas[8],datas[9],datas[10]]
-    },
-    { 
-        label: countries[1],
-        data: [datas[11],datas[12],datas[13],datas[14],datas[15],datas[16],datas[17],datas[18],datas[19],datas[20],datas[21]],
-        backgroundColor : 'blue',
-    }
-]}
+    datasets: datasets,
+}
 
 
 
