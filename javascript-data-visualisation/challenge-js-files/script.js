@@ -1,5 +1,4 @@
 /// 1.1 Graph one display
-
 // Canvas set up 
 function creationCanvas (){
 var canvas1 = document.createElement("canvas");
@@ -7,16 +6,18 @@ canvas1.setAttribute("id", "crimesTable");
 document.querySelector('h3').prepend(canvas1);
 // document.body.insertBefore(canvas1, document.querySelector('#table1'))
 
-
-// Tableau
+// Tableau 1//
 //// 1.  Take the datas
 var years = [];
-var countries = [];
+var countries_1 = [];
+var countries_2 = [];
 var datas = [];
 
 //take the years (OK)
 var table1 = document.getElementById ('table1');
+var table2 = document.getElementById ('table2');
 var AllThTable1 = table1.querySelectorAll('th');
+var AllThTable2 = table2.querySelectorAll('th');
 var years = [];
 for (i=0; i<AllThTable1.length;i++)
 {
@@ -33,13 +34,23 @@ function hasNumber (number)
     return /\d/.test(number);
 }
 
-////take the countries & the datas
+////take the countries_1 & the datas
 var AllTdTable1 = table1.querySelectorAll('td');
-// countries
-AllTdTable1.forEach(e=>{if(!hasNumber(e.innerHTML)){
-    countries.push (e.innerHTML);
-}});
-countries = countries.filter(pays=>pays!==":")
+var AllTdTable2 = table2.querySelectorAll('td');
+
+
+// countries_1
+function getCountries (arr,arrCountries){
+arr.forEach(e=>{if(!hasNumber(e.innerHTML)){
+arrCountries.push (e.innerHTML);}});
+arrCountries = arrCountries.filter(pays=>pays!==":")}
+
+getCountries (AllTdTable1,countries_1);
+/// le filtre ci dessous ne fonctionne pas dans ma fonction -> a revoir
+countries_1 = countries_1.filter(pays=>pays!==":")
+console.log (countries_1)
+
+
 // datas
 AllTdTable1.forEach(e=>{if(hasNumber(e.innerHTML)|| e.innerHTML==":"){
     parseInt(e.innerHTML);
@@ -57,10 +68,6 @@ for (i=0;i<datas.length;i+=nbrDeDonneesParPays){
     tableauParPaysDesDonnees[i] = datas.slice(i,i+nbrDeDonneesParPays)
 }
 tableauParPaysDesDonnees = tableauParPaysDesDonnees.filter(elt=>elt !== undefined);
-
-
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -86,41 +93,133 @@ function donneesPays (label, data, borderColor)
 }
 
 var datasets=[];
-for (i=0;i<countries.length;i++)
+for (i=0;i<countries_1.length;i++)
 {
- datasets[i] = new donneesPays (countries[i],tableauParPaysDesDonnees[i],changeColor());
+ datasets[i] = new donneesPays (countries_1[i],tableauParPaysDesDonnees[i],changeColor());
 }
 
 
-
+var years2 = ['2007','2010'];
+console.log (years2);
 
 const data = {
     labels: years,
     datasets: datasets,
 }
 
-
-
-
-
 // exemple de tableau Chart.js
 var test = new Chart (canvas1,
 //const config = { ici on configure le tableau
     {
-        type: "line",
+        type:'line',
         data: data,
     })
+
+//////////////////////// TABLEAU 2 ///////////////////////////////
+    var canvas2 = document.createElement("canvas2");
+    canvas2.setAttribute("id", "PrisonPopulation");
+    document.querySelector('#table2').prepend(canvas2);
+    console.log (canvas1);
+    console.log (canvas2)
+
+///////////countries_2
+    getCountries (AllTdTable2,countries_2);
+    console.log (countries_2);
+
+
+    console.log (AllTdTable2);
+    console.log (AllThTable2)
+
+// datas2
+var datas2 = [];
+AllTdTable2.forEach(e=>{if(hasNumber(e.innerHTML)|| e.innerHTML==":"){
+    parseInt(e.innerHTML);
+    datas2.push (e.innerHTML);
+}});
+console.log (datas2);
+/// découpe les datas en tableau pour chaque pays
+var tableauParPaysDesDonnees2 = [];
+const nbrDeDonneesParPays2 = 2;
+for (i=0;i<datas2.length;i+=nbrDeDonneesParPays2){
+    tableauParPaysDesDonnees2[i] = datas2.slice(i,i+nbrDeDonneesParPays2)
+}
+console.log (tableauParPaysDesDonnees2)
+tableauParPaysDesDonnees2 = tableauParPaysDesDonnees2.filter(elt=>elt !== undefined);
+console.log (tableauParPaysDesDonnees2)
+
+var datasets2=[];
+for (i=0;i<countries_2.length;i++)
+{
+ datasets2[i] = new donneesPays (countries_2[i],tableauParPaysDesDonnees2[i],changeColor());
+}
+console.log (datasets2);
+
+
+
+const data2 = {
+    labels: years2,
+    datasets: datasets2,
+}
+
+console.log (years);
+console.log (datasets);
+console.log (years2);
+console.log (datasets2);
+
+// chart.jd tableau2
+var test2 = new Chart (canvas2,
+    {
+        type:'line',
+        data: data2,
+    })
+
+
 }
 
 
 creationCanvas ();
 
 
+// TABLEAU 2 //
+/// 2.1 Graph one display
+
+// // Canvas set up 
+// function creationCanvas_2 (){
+//     var canvas2 = document.createElement("canvas2");
+//     canvas2.setAttribute("id", "PrisonPopulation");
+//     document.querySelector('h4').prepend(canvas2);
+
+
+// // countries
+// var AllTdTable2 = table2.querySelectorAll('td');
+// var countries_2 = [];
+//     function getCountries (arr,arrCountries){
+//         arr.forEach(e=>{if(!hasNumber(e.innerHTML)){
+//         arrCountries.push (e.innerHTML);}});
+//         arrCountries = arrCountries.filter(pays=>pays!==":")}
+        
+//     getCountries (AllTdTable2,countries_2);
+
+//     console.log (countries_2);
+//     console.log (countries_2);
+
+// }
+//     // document.body.insertBefore(canvas1, document.querySelector('#table1'))
+
+
+// creationCanvas_2();
+
+// countries_2
+//
+//
+
+
+
 
 // const DATA_COUNT = 11;
 // const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
-// var countries = document.querySelectorAll('td');
-// console.log (countries);
+// var countries_1 = document.querySelectorAll('td');
+// console.log (countries_1);
 
 // const labels = Utils.years({count: 11});
 // const data = {
