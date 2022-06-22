@@ -48,7 +48,6 @@ arrCountries = arrCountries.filter(pays=>pays!==":")}
 getCountries (AllTdTable1,countries_1);
 /// le filtre ci dessous ne fonctionne pas dans ma fonction -> a revoir
 countries_1 = countries_1.filter(pays=>pays!==":")
-console.log (countries_1)
 
 
 // datas
@@ -68,6 +67,9 @@ for (i=0;i<datas.length;i+=nbrDeDonneesParPays){
     tableauParPaysDesDonnees[i] = datas.slice(i,i+nbrDeDonneesParPays)
 }
 tableauParPaysDesDonnees = tableauParPaysDesDonnees.filter(elt=>elt !== undefined);
+
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +101,7 @@ for (i=0;i<countries_1.length;i++)
 }
 
 
-var years2 = ['2007','2010'];
+var years2 = ['2007-09','2010-12'];
 console.log (years2);
 
 const data = {
@@ -116,19 +118,13 @@ var test = new Chart (canvas1,
     })
 
 //////////////////////// TABLEAU 2 ///////////////////////////////
-    var canvas2 = document.createElement("canvas2");
+    var canvas2 = document.createElement("canvas");
     canvas2.setAttribute("id", "PrisonPopulation");
-    document.querySelector('#table2').prepend(canvas2);
-    console.log (canvas1);
-    console.log (canvas2)
+    document.querySelector('#Homicides').prepend(canvas2);
+
 
 ///////////countries_2
     getCountries (AllTdTable2,countries_2);
-    console.log (countries_2);
-
-
-    console.log (AllTdTable2);
-    console.log (AllThTable2)
 
 // datas2
 var datas2 = [];
@@ -136,7 +132,13 @@ AllTdTable2.forEach(e=>{if(hasNumber(e.innerHTML)|| e.innerHTML==":"){
     parseInt(e.innerHTML);
     datas2.push (e.innerHTML);
 }});
-console.log (datas2);
+
+for (i=0;i<datas2.length;i++)
+{
+    datas2[i] = parseInt(datas2[i]);
+}
+
+
 /// découpe les datas en tableau pour chaque pays
 var tableauParPaysDesDonnees2 = [];
 const nbrDeDonneesParPays2 = 2;
@@ -145,7 +147,7 @@ for (i=0;i<datas2.length;i+=nbrDeDonneesParPays2){
 }
 console.log (tableauParPaysDesDonnees2)
 tableauParPaysDesDonnees2 = tableauParPaysDesDonnees2.filter(elt=>elt !== undefined);
-console.log (tableauParPaysDesDonnees2)
+
 
 var datasets2=[];
 for (i=0;i<countries_2.length;i++)
@@ -161,18 +163,12 @@ const data2 = {
     datasets: datasets2,
 }
 
-console.log (years);
-console.log (datasets);
-console.log (years2);
-console.log (datasets2);
-
 // chart.jd tableau2
 var test2 = new Chart (canvas2,
     {
-        type:'line',
+        type:'bar',
         data: data2,
     })
-
 
 }
 
@@ -319,21 +315,21 @@ creationCanvas ();
 
 
 /// Projet 2
-// const url = 'https://canvasjs.com/services/data/datapoints.php';
+const url = 'https://canvasjs.com/services/data/datapoints.php';
 
-// async function recupererData() {
+async function recupererData() {
 
-//     const requete = await fetch(url, {
-//       method: 'GET'
-//     });
+    const requete = await fetch(url, {
+      method: 'GET'
+    });
     
-//     if(!requete.ok) {
-//       alert('Un problème est survenu.');
-//     } else {
-//       let donnees = await requete.json();
-//       console.log(donnees);
-//       document.document.getElementById('firstHeading').textContent = donnees.last;
-//     }
-//   }
+    if(!requete.ok) {
+      alert('Un problème est survenu.');
+    } else {
+      let donnees = await requete.json();
+      console.log(donnees);
+      document.document.getElementById('firstHeading').textContent = donnees.last;
+    }
+  }
   
-//    recupererData();
+   recupererData();
