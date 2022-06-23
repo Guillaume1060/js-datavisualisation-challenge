@@ -87,11 +87,12 @@ function changeColor ()
         return color;
     }
 
-function donneesPays (label, data, borderColor)
+function donneesPays (label, data,borderColor,backgroundColor,)
 {
     this.label = label;
     this.data = data;
     this.borderColor = borderColor;
+    this.backgroundColor = backgroundColor;
 }
 
 var datasets=[];
@@ -99,7 +100,7 @@ for (i=0;i<countries_1.length;i++)
 {
  datasets[i] = new donneesPays (countries_1[i],tableauParPaysDesDonnees[i],changeColor());
 }
-
+console.log (datasets);
 
 var years2 = ['2007-09','2010-12'];
 console.log (years2);
@@ -152,7 +153,7 @@ tableauParPaysDesDonnees2 = tableauParPaysDesDonnees2.filter(elt=>elt !== undefi
 var datasets2=[];
 for (i=0;i<countries_2.length;i++)
 {
- datasets2[i] = new donneesPays (countries_2[i],tableauParPaysDesDonnees2[i],changeColor());
+ datasets2[i] = new donneesPays (countries_2[i],tableauParPaysDesDonnees2[i],changeColor(),changeColor());
 }
 console.log (datasets2);
 
