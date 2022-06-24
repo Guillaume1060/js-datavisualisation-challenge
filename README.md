@@ -4,7 +4,6 @@
 - mode: `solo`  
 - type: `consolidation challenge`  
 - duration: `5 days`  
-- form: **Coming soon**
 
    
 ## Objectives
