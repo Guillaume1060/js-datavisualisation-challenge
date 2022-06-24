@@ -33,17 +33,23 @@ function creationCanvas() {
   var AllTdTable1 = table1.querySelectorAll("td");
   var AllTdTable2 = table2.querySelectorAll("td");
 
-  // function to get the countries on array
+  
+  /**
+   * function to get the countries on array
+   * @param {array} InitialArray 
+   * @param {array} NewArray
+   */
   function getCountries(arr, arrCountries) {
     arr.forEach((e) => {
       if (!hasNumber(e.innerHTML)) {
         arrCountries.push(e.innerHTML);
-      }
-    });
-    arrCountries = arrCountries.filter((pays) => pays !== ":");
-  }
+      }})
+      arrCountries = arrCountries.filter((pays) => pays !== ":");
+    }
 
   getCountries(AllTdTable1, countries_1);
+  countries_1 = countries_1.filter((pays) => pays !== ":");
+
 
   // DATAS
   AllTdTable1.forEach((e) => {
@@ -78,8 +84,14 @@ function creationCanvas() {
     }
     return color;
   }
-
-  //// CONSTRUCTOR TO OBTAIN ONE OBJECT PER COUNTRY
+  
+  /**
+   * CONSTRUCTOR TO OBTAIN ONE OBJECT PER COUNTRY
+   * @param {Array} label 
+   * @param {Array} data 
+   * @param {function changeColor()} colorOfBorder
+   * @param {function changeColor()} colorOfBackground
+   */
   function donneesPays(label, data, borderColor, backgroundColor) {
     this.label = label;
     this.data = data;
@@ -160,8 +172,9 @@ function creationCanvas() {
 creationCanvas();
 
 
+//////////////////////// TABLEAU 3 ///////////////////////////////
 
-/// DISPLAY OF THE GRAPHIC WITHOUT DATAS
+/// DISPLAY OF THE GRAPHIC WITHOUT REAL DATAS
 var graph3 = document.createElement("canvas");
 graph3.setAttribute("id", "ajaxTable");
 document.querySelector("#firstHeading").prepend(graph3);
@@ -192,13 +205,24 @@ var exo3 = new Chart(graph3, {
           display: false}
 }}});
 
-/// UPDATE THE GRAPH WITH FETCH DATAS AS VARIABLE
+
+/**
+ * UPDATE THE GRAPH WITH FETCH DATAS AS VARIABLE
+ * @param {array} dataFromURL
+ */
 function update(donneesRecuperees) {
   for (i = 0; i < donneesRecuperees.length; i++) {
     x[i]=donneesRecuperees[i][0];
     y[i] = donneesRecuperees[i][1];
   }
 
+  /**
+   * UpdateOfChart
+   * @param {chart} chart 
+   * @param {array} labels
+   * @param {array} dataY 
+   * @param {number} datasetIndex 
+   */
   function addData(chart, labels, dataY, datasetIndex) {
     chart.data.datasets[datasetIndex].data = dataY;
     chart.data.labels = labels;
