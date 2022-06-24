@@ -181,6 +181,12 @@ var exo3 = new Chart(graph3, {
   type: "line",
   data: data3,
   options: {
+    scales: {
+        y: {
+          min: -10,
+          max: 30,
+        }
+      },
     plugins: {
         legend: {
           display: false}
@@ -189,8 +195,8 @@ var exo3 = new Chart(graph3, {
 /// UPDATE THE GRAPH WITH FETCH DATAS AS VARIABLE
 function update(donneesRecuperees) {
   for (i = 0; i < donneesRecuperees.length; i++) {
-    x.push(donneesRecuperees[i][0]);
-    y.push(donneesRecuperees[i][1]);
+    x[i]=donneesRecuperees[i][0];
+    y[i] = donneesRecuperees[i][1];
   }
 
   function addData(chart, labels, dataY, datasetIndex) {
