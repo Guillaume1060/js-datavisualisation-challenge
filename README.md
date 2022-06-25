@@ -1,6 +1,6 @@
 #  Javascript Challenge : "Data Visualisation" - BECODE EXERCISE
 
-- repository : `js-datavisualisation-challenge`  
+- GitHub page : [https://guillaume1060.github.io/js-datavisualisation-challenge/](https://guillaume1060.github.io/js-datavisualisation-challenge/)
 - mode: `solo`  
 - type: `consolidation challenge`  
 - duration: `5 days`  
